@@ -2,7 +2,7 @@ import webbrowser
 import json
 import time
 from threading import Timer
-classDict = json.load(open('data.json'))
+classDict = json.load(open('data/data.json'))
 currentInfo = time.localtime(time.time())
 allTimes = {"period":[], "time":[]}
 
