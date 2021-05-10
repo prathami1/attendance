@@ -1,11 +1,24 @@
 import webbrowser
 import json
 import time
+from flask import Flask, render_template
 from threading import Timer
 classDict = json.load(open('data/data.json'))
 currentInfo = time.localtime(time.time())
 allTimes = {"period":[], "time":[]}
 
+app = Flask(__name__)
+app.debug = True
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        schedule = request.form['schedule']
+        return redirect(url_for('dashboard', schedule = schedule)) 
+    return render_template('home')
+
+@app.route('/home')
+def schedule():
 Timer.cancel
 print("\n" + "SCHEDULE:" + "\n")
 
@@ -25,6 +38,7 @@ for index, info in enumerate(classDict['classData']):
 print("~~~~~~~~~~~~~~~~~~")
 print("You have " + str(len(allTimes["time"])) + " upcoming classes in the next 24 hours" + "\n")
 
+@app.route('/')
 def executeZoom():
     leastTimeDiff = float("inf")
     for t in allTimes["time"]:
@@ -41,3 +55,6 @@ for t in allTimes["time"]:
 
 if(len(allTimes["time"]) == 0):
     input('Press ENTER to exit')
+
+if __name__ == '__main__':
+    app.run(debug = True)
