@@ -7,7 +7,7 @@ currentInfo = time.localtime(time.time())
 allTimes = {"period":[], "time":[]}
 
 Timer.cancel
-print("\n" + "SCHEDULE:" + "\n" + "---------------")
+print("\n" + "SCHEDULE:" + "\n")
 
 for index, info in enumerate(classDict['classData']):
     newTime = time.mktime(time.struct_time((currentInfo.tm_year, currentInfo.tm_mon, currentInfo.tm_mday, info["timeStartHour"], info["timeStartMinute"], 0, currentInfo.tm_wday, currentInfo.tm_yday, currentInfo.tm_isdst)))
@@ -22,7 +22,7 @@ for index, info in enumerate(classDict['classData']):
         allTimes["time"].append(newTime)
         allTimes["period"].append(index)
 
-print("---------------")
+print("~~~~~~~~~~~~~~~~~~")
 print("You have " + str(len(allTimes["time"])) + " upcoming classes in the next 24 hours" + "\n")
 
 def executeZoom():
